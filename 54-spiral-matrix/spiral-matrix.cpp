@@ -1,34 +1,40 @@
 class Solution {
 public:
     vector<int> spiralOrder(vector<vector<int>>& matrix) {
-        int top = 0, bottom = matrix.size()-1, left = 0 , right = matrix[0].size()-1;
-        vector <int> spiral;
-        while (top <= bottom && left <= right){
-            for (int i = left ; i <= right ; i ++){
-                spiral.push_back(matrix[top][i]);
-            }
-            top += 1;
+        int a = matrix[0].size()-1;
+        int b = matrix.size()-1;
+        int up = 0;
+        int right = a;
+        int left = 0;
+        int down = b;
 
-            for (int j = top; j <= bottom ; j++){
-                spiral.push_back(matrix[j][right]);
-            }
-            right -= 1;
+        vector<int> answer;
 
+        while(up <= down && left <= right){
+            for(int i = left; i <= right; i++){
+                answer.push_back(matrix[up][i]);
+            }
+            up++;
 
-            if (top <= bottom){
-            for (int k = right; k >= left; k--){
-                spiral.push_back(matrix[bottom][k]);
+            for(int i = up; i <= down; i++){
+                answer.push_back(matrix[i][right]);
             }
-            bottom -= 1;
+            right--;
 
+            if(up <= down){
+                for(int i = right; i >= left; i--){
+                    answer.push_back(matrix[down][i]);
+                }
+            down--;
             }
-            if (left <= right){
-            for (int l = bottom; l >= top; l--){
-                spiral.push_back(matrix[l][left]);
-            }
-            left += 1;
+
+            if(left <= right){
+                for(int i = down; i >= up; i--){
+                    answer.push_back(matrix[i][left]);
+                }
+            left++;
             }
         }
-        return spiral;
+        return answer;
     }
 };
